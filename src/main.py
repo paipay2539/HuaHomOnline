@@ -23,7 +23,11 @@ def load_assets():
 def main():
     load_assets()
     clock = pygame.time.Clock()
-    level = Level()
+    # ตัวอย่าง level_data (แก้ไขตามที่ Level ต้องการ)
+    level_data = [
+        # เช่น ข้อมูลแผนที่, ตำแหน่งศัตรู ฯลฯ
+    ]
+    level = Level(level_data)
 
     running = True
     while running:
