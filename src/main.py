@@ -62,6 +62,7 @@ def main():
     char_x = screen_width // 2
     char_y = screen_height // 2
     char_speed = 4  # ความเร็ว
+    char_flipped = False  # เพิ่มตัวแปรนี้ไว้ก่อน while running
 
     running = True
     while running:
@@ -76,8 +77,10 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
             char_x -= char_speed
+            char_flipped = False
         if keys[pygame.K_d]:
             char_x += char_speed
+            char_flipped = True
         if keys[pygame.K_w]:
             char_y -= char_speed
         if keys[pygame.K_s]:
@@ -90,12 +93,13 @@ def main():
             frame_idx = (frame_idx + 1) % len(frames)
 
         # Draw everything
-        screen.fill((0, 0, 0))  # Clear the screen with black
         screen.fill((255, 255, 255))  # Clear the screen with white
         level.draw(screen)
 
-        # วาดตัวละคร
+        # วาดตัวละคร (กลับด้านถ้า char_flipped)
         char_img = frames[frame_idx]
+        if char_flipped:
+            char_img = pygame.transform.flip(char_img, True, False)
         char_rect = char_img.get_rect(center=(char_x, char_y))
         screen.blit(char_img, char_rect)
 
