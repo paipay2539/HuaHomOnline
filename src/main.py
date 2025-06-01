@@ -18,6 +18,9 @@ pygame.display.set_caption("2D Game")
 CHAR_WIDTH = 255
 CHAR_HEIGHT = 255
 
+bg_image = pygame.image.load(os.path.join("src", "assets", "sprites", "pokemon_bg.png")).convert()
+bg_image = pygame.transform.scale(bg_image, (screen_width, screen_height))
+
 def load_assets():
     pass
 
@@ -26,7 +29,14 @@ def main():
     clock = pygame.time.Clock()
     level_data = []
     level = Level(level_data)
-    player = Player(screen_width // 2, screen_height // 2, rows=2, cols=2)  # กำหนด rows, cols ได้
+    player = Player(
+        screen_width // 2,
+        screen_height // 2,
+        rows=2,
+        cols=2,
+        width=CHAR_WIDTH,
+        height=CHAR_HEIGHT
+    )
 
     running = True
     while running:
@@ -39,7 +49,8 @@ def main():
         player.handle_input()
         player.update(dt)
 
-        screen.fill((0, 0, 0))
+        # วาดแบล็คกราวด์
+        screen.blit(bg_image, (0, 0))
         level.draw(screen)
         player.draw(screen)
 
